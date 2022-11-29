@@ -1,22 +1,36 @@
 import { useState } from "react";
 import "./App.css";
-import { useDispatch } from 'react-redux' 
+
 
 function App() {
   const [pokedexVis, setPokedexVis] = useState(true);
-  const [pokemonName, setPokemonName] = useState('')
+  const [name, setName] = useState('')
+  const [pokeData, setPokeData] = useState(null)
+  const [pokeDesc, setPokeDesc] = useState(null)
 
+  const getPokemon = async () => {
+    try {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      const data = await response.json()
+      setPokeData(data)
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
 
-  // const handleClick = () => {
-  //   const pokedexImg = document.querySelector('.pokedex')
-  //   pokedexImg.classList.add("pokedexHidden")
-  //   setTimeout(() => {
-  //     pokedexImg.classList.remove("pokedexHidden")
-  //     pokedexImg.classList.add("pokedexGone")
-  //     setPokedexVis(false);
-  //   }, 1200);
-    
-  // }
+  const getPokemonDesc = async () => {
+    try {
+      const response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon-species/${name}`
+      );
+      const desc = await response.json();
+      setPokeDesc(desc);
+    } catch (err) {
+      console.log(err);
+    }
+  };  
+
 
   const handleClick = () => {
     const pokedexImg = document.querySelector(".pokedex");
@@ -33,27 +47,37 @@ function App() {
 
     }, 1300)
 
+    // fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then(
+    //   (response) => response.json()
+    // );
+
   };
 
   return (
     <div className="container">
-     
-        {pokedexVis ?  
-          
-      <div className="pokedexContainer">
-        <div className="pokedex" onClick={handleClick}>
+      {pokedexVis ? (
+        <div className="pokedexContainer">
+          <div className="pokedex" onClick={handleClick}></div>
         </div>
-      </div>
-        
-        : 
-          <div className="formContainer">
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input placeholder="enter a pokemon name" onChange={(e) => setPokemonName(e.target.value)}></input>
-            <button>Go! {pokemonName}</button>
-            </form>
-          </div>
-        }
-      
+      ) : (
+        <div className="formContainer">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              getPokemon();
+              getPokemonDesc();
+            }}
+          >
+            <input
+              placeholder="enter a pokemon name"
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+            <button>Go! {name}</button>
+          </form>
+          <img src={pokeData?.sprites.front_default} alt="" />
+          <span>{pokeDesc?.flavor_text_entries[0].flavor_text}</span>
+        </div>
+      )}
     </div>
   );
 }
