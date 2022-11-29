@@ -103,7 +103,6 @@
 
 .pokedexBig {
   transform: scale(110);
-  /* transform-origin: 28% 47%; */
   transition: all 5s linear;
   animation-name: zoom;
   animation-duration: 6s;
@@ -119,15 +118,6 @@
     transition: linear;
   }
         /* x%, y% */
-  /* 25% {
-    transform-origin: 16% 41%;
-    transform: scale(12);
-  }
-
-  50% {
-    transform-origin: 17% 42%;
-    transform: scale(25);
-  } */
 
   80% {
     transform-origin: 15% 40%;
@@ -174,6 +164,10 @@ img {
   width:20vh;
 }
 
+input {
+  padding: 0.9rem;
+  border-radius: 0.3rem;
+}
 
 @media only screen and (max-width: 801px) {
 
@@ -191,4 +185,90 @@ img {
     overflow: hidden;
   }
 
+}
+
+@media only screen and (max-width: 1500px) {
+
+
+  .pokedexBig {
+    transform: scale(110);
+    transition: all 5s linear;
+    animation-name: zoom;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+    cursor: unset;
+
+    /* animation-iteration-count: 1; */
+  }
+
+  @keyframes zoom {
+    0% {
+      transform-origin: 15% 47%;
+      transform: scale(1);
+      transition: linear;
+    }
+
+    /* x%, y% */
+
+    80% {
+      transform-origin: 15% 48%;
+      transform: scale(100);
+      transition: linear;
+    }
+
+    90% {
+      transform-origin: 18% 49%;
+      transform: scale(2200);
+      transition: linear;
+    }
+
+    100% {
+      transform-origin: 18% 48%;
+      transform: scale(5000);
+      transition: linear;
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+
+
+  .pokedexBig {
+    transform: scale(110);
+    transition: all 5s linear;
+    animation-name: zoom;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+    cursor: unset;
+
+    /* animation-iteration-count: 1; */
+  }
+
+  @keyframes zoom {
+    0% {
+      transform-origin: 15% 47%;
+      transform: scale(1);
+      transition: linear;
+    }
+
+    /* x%, y% */
+
+    80% {
+      transform-origin: 15% 51%;
+      transform: scale(115);
+      transition: linear;
+    }
+
+    90% {
+      transform-origin: 18% 52%;
+      transform: scale(2200);
+      transition: linear;
+    }
+
+    100% {
+      transform-origin: 18% 53%;
+      transform: scale(5000);
+      transition: linear;
+    }
+  }
 }

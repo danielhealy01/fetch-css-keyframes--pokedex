@@ -43,13 +43,7 @@ function App() {
       container.classList.remove('container')
       setPokedexVis(false);
 
-      /* conditional render based onstate the pokedex aftertzoom in */
-
     }, 1300)
-
-    // fetch(`https://pokeapi.co/api/v2/pokemon/${name}`).then(
-    //   (response) => response.json()
-    // );
 
   };
 
@@ -72,10 +66,18 @@ function App() {
               placeholder="enter a pokemon name"
               onChange={(e) => setName(e.target.value)}
             ></input>
-            <button>Go! {name}</button>
+            {name.length === 0 ? (
+              <button disabled>I choose you, {name}!</button>
+            ) : (
+              <button>I choose you, {name}!</button>
+            )}
           </form>
-          <img src={pokeData?.sprites.front_default} alt="" />
-          <span>{pokeDesc?.flavor_text_entries[0].flavor_text}</span>
+          {pokeData && pokeDesc ? (
+            <>
+              <img src={pokeData?.sprites.front_default} alt="" />
+              <span>{pokeDesc?.flavor_text_entries[0].flavor_text}</span>
+            </>
+          ) : null}
         </div>
       )}
     </div>
